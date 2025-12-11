@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { pgTable, text, varchar, integer } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, integer, boolean, timestamp } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -29,10 +29,12 @@ export const payments = pgTable("payments", {
   customerName: text("customer_name"),
   customerEmail: text("customer_email"),
   customerPhone: text("customer_phone"),
+  createdAt: text("created_at").notNull().default(sql`now()`),
 });
 
 export const insertPaymentSchema = createInsertSchema(payments).omit({
   id: true,
+  createdAt: true,
 });
 
 export type InsertPayment = z.infer<typeof insertPaymentSchema>;
@@ -48,4 +50,49 @@ export const verifyPaymentSchema = z.object({
   razorpay_order_id: z.string(),
   razorpay_payment_id: z.string(),
   razorpay_signature: z.string(),
+});
+
+export interface ContactSubmission {
+  id: string;
+  name: string;
+  email: string;
+  phone: string | null;
+  subject: string;
+  message: string;
+  status: string;
+  createdAt: string;
+}
+
+export interface NewsletterSubscription {
+  id: string;
+  email: string;
+  isActive: boolean;
+  subscribedAt: string;
+}
+
+export interface ButtonClick {
+  id: string;
+  buttonId: string;
+  buttonName: string;
+  section: string;
+  clickCount: number;
+  lastClicked: string;
+}
+
+export const contactFormSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Invalid email address"),
+  phone: z.string().optional(),
+  subject: z.string().min(5, "Subject must be at least 5 characters"),
+  message: z.string().min(10, "Message must be at least 10 characters"),
+});
+
+export const newsletterSchema = z.object({
+  email: z.string().email("Invalid email address"),
+});
+
+export const buttonClickSchema = z.object({
+  buttonId: z.string(),
+  buttonName: z.string(),
+  section: z.string(),
 });

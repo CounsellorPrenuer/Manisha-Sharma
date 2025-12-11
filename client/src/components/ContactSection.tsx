@@ -36,22 +36,42 @@ export function ContactSection() {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // todo: remove mock functionality - connect to real API
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    
-    console.log("Contact form submitted:", formData);
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for reaching out. We'll get back to you within 24 hours.",
-    });
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone || undefined,
+          subject: formData.service || "General Inquiry",
+          message: formData.message,
+        }),
+      });
 
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({ name: "", email: "", phone: "", service: "", message: "" });
-    }, 3000);
+      if (!response.ok) {
+        throw new Error("Failed to submit");
+      }
+
+      setIsSubmitted(true);
+      toast({
+        title: "Message Sent!",
+        description: "Thank you for reaching out. We'll get back to you within 24 hours.",
+      });
+
+      setTimeout(() => {
+        setIsSubmitted(false);
+        setFormData({ name: "", email: "", phone: "", service: "", message: "" });
+      }, 3000);
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (field: string, value: string) => {

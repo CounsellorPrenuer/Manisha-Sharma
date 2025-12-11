@@ -34,17 +34,33 @@ export function Footer() {
   const [email, setEmail] = useState("");
   const { toast } = useToast();
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
     
-    // todo: remove mock functionality - connect to real newsletter API
-    console.log("Newsletter signup:", email);
-    toast({
-      title: "Subscribed!",
-      description: "You've been added to our newsletter.",
-    });
-    setEmail("");
+    try {
+      const response = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to subscribe");
+      }
+
+      toast({
+        title: "Subscribed!",
+        description: "You've been added to our newsletter.",
+      });
+      setEmail("");
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to subscribe. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   const scrollToSection = (href: string) => {
