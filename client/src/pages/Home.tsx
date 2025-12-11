@@ -7,6 +7,7 @@ import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { WhyChooseSection } from "@/components/WhyChooseSection";
 import { BlogSection } from "@/components/BlogSection";
 import { ContactSection } from "@/components/ContactSection";
+import { PlatformSection } from "@/components/PlatformSection";
 import { Footer } from "@/components/Footer";
 import { CustomCursor } from "@/components/CustomCursor";
 
@@ -24,6 +25,7 @@ export default function Home() {
         <WhyChooseSection />
         <BlogSection />
         <ContactSection />
+        <PlatformSection />
       </main>
       <Footer />
     </div>
