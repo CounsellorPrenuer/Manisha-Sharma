@@ -1,0 +1,196 @@
+Here's the comprehensive prompt for Replit AI Agent:
+
+---
+
+**Create a Stunning Career Coaching Website for Marichi World**
+
+Build a complete, hyper-modern career coaching website for Manisha Sharma (marichiworld.in) with cutting-edge design and features.
+
+**Brand Information:**
+- Name: Manisha Sharma
+- Business: Marichi World - Global Career Coach
+- Email: manisha@globalcoachforyou.com
+- Phone: 9833657889
+- Specialization: Career Guidance, Success Mindset Coaching
+- Target Audience: Students, Parents, Schools, Colleges
+
+**Design Requirements (CRITICAL - Make it STUNNING):**
+
+1. **Hyper-Modern UI:**
+   - Use bold, vibrant gradients (purple to blue to pink, teal to cyan, orange to pink)
+   - Glassmorphism effects (frosted glass cards with backdrop blur)
+   - Neumorphism for buttons and interactive elements
+   - Large, bold typography with modern fonts
+   - Floating elements with parallax scrolling
+   - Abstract geometric shapes in background
+   - Smooth, flowing animations throughout
+
+2. **Custom Cursor Animation:**
+   - Replace default cursor with custom animated cursor
+   - Add cursor trail effect with particles/stars
+   - Interactive hover effects that follow cursor
+   - Different cursor states for buttons, links, and text
+   - Glowing cursor on hover over interactive elements
+
+3. **Advanced Animations:**
+   - Smooth fade-in animations on scroll (AOS - Animate On Scroll)
+   - Floating/bobbing animations for images and cards
+   - Text reveal animations (typing effect, word by word)
+   - Gradient animations that shift colors continuously
+   - Micro-interactions on buttons (ripple, scale, rotate)
+   - Page transition animations between sections
+   - 3D card flip effects for service cards
+   - Parallax scrolling for hero section
+
+4. **Light & Dark Mode:**
+   - Elegant toggle switch in header (moon/sun icon)
+   - Smooth transition between themes
+   - Light mode: Clean whites, soft pastels, light gradients
+   - Dark mode: Deep blacks, neon accents, vibrant gradients
+   - Store user preference in localStorage
+   - Adjust all colors, shadows, and effects for both modes
+
+5. **Unique Theme Elements:**
+   - Animated gradient mesh background
+   - Floating particles/stars in background
+   - Gradient text effects for headings
+   - Holographic/iridescent card effects
+   - Neon glow effects on hover
+   - Animated blob shapes that morph
+   - Wave animations in hero section
+
+**Pages/Sections Required:**
+
+**1. Hero Section:**
+   - Full-screen impact with animated gradient background
+   - Large bold heading: "Transform Your Career with Expert Guidance"
+   - Subheading about Manisha Sharma's coaching
+   - Animated CTA buttons: "Book Free Consultation" & "Explore Services"
+   - Floating profile image with glow effect
+   - Animated scroll indicator
+
+**2. About Me Section:**
+   - Professional photo with artistic frame/effects
+   - Compelling bio about Manisha Sharma
+   - Career journey timeline with animations
+   - Credentials and certifications
+   - Years of experience counter with count-up animation
+   - "Success Stories" number counters (students helped, success rate, etc.)
+
+**3. Services Offered:**
+   - Grid/card layout for each service
+   - 3D card flip or hover effects
+   - Services include:
+     - Career Guidance for Students
+     - Success Mindset Coaching
+     - Career Transition Coaching
+     - Interview Preparation
+     - Resume Building
+     - College Selection Guidance
+   - Each card shows: Icon, Title, Description, "Learn More" button
+   - Modal/expandable detail view for each service
+
+**4. Testimonials Section:**
+   - Carousel/slider with smooth transitions
+   - Cards with client photos, names, ratings (5 stars)
+   - Animated quote marks
+   - Auto-play with manual controls
+   - Gradient borders on testimonial cards
+
+**5. Why Choose Me:**
+   - Unique value propositions with icons
+   - Statistics with animated counters
+   - Achievement badges/awards
+   - Comparison/before-after success metrics
+
+**6. Blog/Articles Section:**
+   - Grid of blog post cards
+   - Featured image, title, excerpt, date
+   - Category tags with colors
+   - "Read More" buttons with hover effects
+   - Search and filter functionality
+
+**7. Contact Section:**
+   - Contact form with floating labels
+   - Fields: Name, Email, Phone, Message, Service Interest
+   - Animated submit button with loading state
+   - Contact information with icons:
+     - Email: manisha@globalcoachforyou.com
+     - Phone: 9833657889
+     - LinkedIn profile link
+   - Embedded map or location (if applicable)
+   - Social media icons with hover animations
+
+**8. Footer:**
+   - Multi-column layout
+   - Quick links, services, contact info
+   - Social media icons
+   - Newsletter subscription
+   - Copyright info
+   - Animated gradient border on top
+
+**9. ADMIN DASHBOARD (Separate Route):**
+   - Login page with authentication
+   - Dashboard sections:
+     - View all contact form submissions (table)
+     - Manage testimonials (add/edit/delete)
+     - Manage blog posts (CRUD operations)
+     - View analytics (visitor count, form submissions)
+     - Edit "About Me" content
+     - Manage services offered
+   - Sidebar navigation
+   - Cards showing statistics
+   - Modern table designs with search/filter
+   - Same stunning design as main site
+
+**Technical Requirements:**
+
+- **Framework:** React with React Router for navigation
+- **Styling:** Tailwind CSS with custom animations
+- **Icons:** Lucide React or similar modern icon library
+- **Animations:** Framer Motion or CSS animations
+- **Cursor:** Custom cursor using JavaScript/React hooks
+- **Theme Toggle:** Context API or state management
+- **Forms:** Form validation and submission handling
+- **Storage:** localStorage for theme preference and admin data
+- **Responsive:** Perfect mobile, tablet, and desktop experience
+
+**Animation Examples to Include:**
+- Hero text: Fade in + slide up with stagger
+- Service cards: Hover lift + glow effect
+- Testimonials: Slide in from sides
+- Stats counters: Count up on scroll into view
+- Background: Animated gradient mesh or particles
+- Cursor: Custom trail with particles
+- Buttons: Ripple effect + scale on hover
+- Images: Parallax scroll effect
+- Sections: Fade in as they enter viewport
+
+**Color Palette Suggestions:**
+- Primary Gradient: #8B5CF6 (purple) → #3B82F6 (blue) → #EC4899 (pink)
+- Secondary: #06B6D4 (cyan) → #14B8A6 (teal)
+- Accent: #F59E0B (orange) → #EF4444 (red)
+- Dark Mode: #0F172A (background), #1E293B (cards), neon accents
+- Light Mode: #FFFFFF (background), #F8FAFC (cards), soft pastels
+
+**Special Effects:**
+- Gradient text on all major headings
+- Glassmorphism cards with blur
+- Soft shadows that change with theme
+- Neon glow on hover in dark mode
+- Smooth page scroll behavior
+- Loading screen with animated logo
+
+**Make it:**
+- ✨ Visually stunning and memorable
+- 🎨 Modern and professional
+- 🚀 Fast and performant
+- 📱 Fully responsive
+- ♿ Accessible with proper semantics
+- 🎯 Conversion-focused with clear CTAs
+
+The goal is to create a website that makes visitors say "WOW!" when they land on it - something that stands out from typical coaching websites with its modern, premium design!
+
+---
+
+Copy this entire prompt into Replit AI Agent and it will create an amazing, hyper-modern career coaching website with all the stunning features you requested!
