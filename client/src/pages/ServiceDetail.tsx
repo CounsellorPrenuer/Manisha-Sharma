@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useParams, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -153,6 +154,10 @@ const servicesData: ServiceData[] = [
 export default function ServiceDetail() {
   const { slug } = useParams<{ slug: string }>();
   const [, setLocation] = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [slug]);
 
   const service = servicesData.find((s) => s.slug === slug);
 
