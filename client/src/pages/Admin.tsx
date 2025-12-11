@@ -118,8 +118,6 @@ const blogCategories = ["Career Tips", "Mindset", "Interview", "Resume", "Succes
 export default function Admin() {
   const [, setLocation] = useLocation();
   const [searchQuery, setSearchQuery] = useState("");
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [password, setPassword] = useState("");
   const { toast } = useToast();
   
   const [reviewDialogOpen, setReviewDialogOpen] = useState(false);
@@ -141,37 +139,30 @@ export default function Admin() {
 
   const { data: stats, refetch: refetchStats } = useQuery<AdminStats>({
     queryKey: ["/api/admin/stats"],
-    enabled: isAuthenticated,
   });
 
   const { data: contacts, isLoading: contactsLoading } = useQuery<ContactSubmission[]>({
     queryKey: ["/api/admin/contacts"],
-    enabled: isAuthenticated,
   });
 
   const { data: subscribers, isLoading: subscribersLoading } = useQuery<NewsletterSubscription[]>({
     queryKey: ["/api/admin/subscribers"],
-    enabled: isAuthenticated,
   });
 
   const { data: payments, isLoading: paymentsLoading } = useQuery<AdminPayment[]>({
     queryKey: ["/api/admin/payments"],
-    enabled: isAuthenticated,
   });
 
   const { data: buttonClicks } = useQuery<ButtonClick[]>({
     queryKey: ["/api/admin/button-clicks"],
-    enabled: isAuthenticated,
   });
 
   const { data: reviews, isLoading: reviewsLoading } = useQuery<Review[]>({
     queryKey: ["/api/admin/reviews"],
-    enabled: isAuthenticated,
   });
 
   const { data: blogs, isLoading: blogsLoading } = useQuery<BlogPost[]>({
     queryKey: ["/api/admin/blogs"],
-    enabled: isAuthenticated,
   });
 
   const createReviewMutation = useMutation({
@@ -294,15 +285,6 @@ export default function Admin() {
     toast({ title: "Blog content generated!" });
   };
 
-  const handleLogin = () => {
-    if (password === "marichi2024") {
-      setIsAuthenticated(true);
-      toast({ title: "Welcome!", description: "You've logged in to the admin dashboard." });
-    } else {
-      toast({ title: "Invalid Password", description: "Please enter the correct password.", variant: "destructive" });
-    }
-  };
-
   const getButtonsWithClicks = (): ButtonInfo[] => {
     if (!buttonClicks) return allButtons;
     return allButtons.map(button => {
@@ -318,27 +300,6 @@ export default function Admin() {
 
   const sections = Array.from(new Set(allButtons.map(b => b.section)));
 
-  if (!isAuthenticated) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center p-4">
-        <Card className="w-full max-w-md p-8">
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white mb-4">
-              <BarChart3 className="h-8 w-8" />
-            </div>
-            <h1 className="text-2xl font-bold">Admin Dashboard</h1>
-            <p className="text-muted-foreground mt-2">Enter password to access</p>
-          </div>
-          <div className="space-y-4">
-            <Input type="password" placeholder="Enter admin password" value={password} onChange={(e) => setPassword(e.target.value)} onKeyDown={(e) => e.key === "Enter" && handleLogin()} data-testid="input-admin-password" />
-            <Button className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0" onClick={handleLogin} data-testid="button-admin-login">Login</Button>
-            <Button variant="ghost" className="w-full" onClick={() => setLocation("/")} data-testid="button-admin-back"><ArrowLeft className="mr-2 h-4 w-4" />Back to Website</Button>
-          </div>
-        </Card>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-background" data-testid="page-admin">
       <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/50">
@@ -348,10 +309,7 @@ export default function Admin() {
               <Button variant="ghost" size="icon" onClick={() => setLocation("/")} data-testid="button-admin-home"><ArrowLeft className="h-5 w-5" /></Button>
               <h1 className="text-xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">Admin Dashboard</h1>
             </div>
-            <div className="flex items-center gap-2">
-              <Button variant="outline" size="sm" onClick={() => refetchStats()} data-testid="button-admin-refresh"><RefreshCw className="h-4 w-4 mr-2" />Refresh</Button>
-              <Button variant="ghost" size="sm" onClick={() => setIsAuthenticated(false)} data-testid="button-admin-logout">Logout</Button>
-            </div>
+            <Button variant="outline" size="sm" onClick={() => refetchStats()} data-testid="button-admin-refresh"><RefreshCw className="h-4 w-4 mr-2" />Refresh</Button>
           </div>
         </div>
       </header>
