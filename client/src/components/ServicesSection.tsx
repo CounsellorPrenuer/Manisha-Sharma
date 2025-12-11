@@ -1,8 +1,8 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Link } from "wouter";
 import {
   GraduationCap,
   Brain,
@@ -17,7 +17,7 @@ interface Service {
   icon: React.ReactNode;
   title: string;
   description: string;
-  details: string;
+  slug: string;
   color: string;
 }
 
@@ -26,48 +26,47 @@ const services: Service[] = [
     icon: <GraduationCap className="h-8 w-8" />,
     title: "Career Guidance for Students",
     description: "Navigate academic choices and career paths with expert guidance tailored to your unique strengths.",
-    details: "Our comprehensive career guidance program helps students discover their passions, understand their aptitudes, and make informed decisions about their academic and professional futures. We provide personalized assessments, one-on-one counseling, and actionable roadmaps.",
+    slug: "career-guidance",
     color: "from-purple-500 to-blue-500",
   },
   {
     icon: <Brain className="h-8 w-8" />,
     title: "Success Mindset Coaching",
     description: "Develop the mental frameworks and habits that drive exceptional achievement.",
-    details: "Transform your thinking patterns to unlock your full potential. Our mindset coaching program covers goal setting, overcoming limiting beliefs, building resilience, and developing the psychological tools needed for sustained success in any field.",
+    slug: "mindset-coaching",
     color: "from-blue-500 to-cyan-500",
   },
   {
     icon: <RefreshCw className="h-8 w-8" />,
     title: "Career Transition Coaching",
     description: "Seamlessly navigate career changes with confidence and strategic planning.",
-    details: "Whether you're switching industries, returning to work, or seeking advancement, our transition coaching provides the strategic framework you need. We help you identify transferable skills, build new competencies, and create a compelling narrative for your next chapter.",
+    slug: "career-transition",
     color: "from-cyan-500 to-teal-500",
   },
   {
     icon: <Mic className="h-8 w-8" />,
     title: "Interview Preparation",
     description: "Master the art of interviewing with proven techniques and personalized practice.",
-    details: "Our intensive interview preparation includes mock interviews, body language training, answer frameworks for common questions, and strategies for handling stress. We prepare you for both technical and behavioral interviews across industries.",
+    slug: "interview-preparation",
     color: "from-teal-500 to-green-500",
   },
   {
     icon: <FileText className="h-8 w-8" />,
     title: "Resume Building",
     description: "Craft compelling resumes that stand out and tell your unique story.",
-    details: "Your resume is your first impression. We help you create ATS-friendly, visually appealing resumes that highlight your achievements and potential. Our service includes LinkedIn optimization and cover letter writing.",
+    slug: "resume-building",
     color: "from-orange-500 to-pink-500",
   },
   {
     icon: <School className="h-8 w-8" />,
     title: "College Selection Guidance",
     description: "Find the perfect educational institution to match your goals and aspirations.",
-    details: "Making the right college choice is crucial for your career success. We provide comprehensive guidance on course selection, university research, application strategies, and scholarship opportunities both in India and abroad.",
+    slug: "college-selection",
     color: "from-pink-500 to-purple-500",
   },
 ];
 
 export function ServicesSection() {
-  const [selectedService, setSelectedService] = useState<Service | null>(null);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -116,52 +115,21 @@ export function ServicesSection() {
                   {service.description}
                 </p>
 
-                <Button
-                  variant="ghost"
-                  className="group/btn p-0 h-auto text-purple-500 hover:text-purple-600 hover:bg-transparent"
-                  onClick={() => setSelectedService(service)}
-                  data-testid={`button-service-learn-more-${index}`}
-                >
-                  Learn More
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
-                </Button>
+                <Link href={`/services/${service.slug}`}>
+                  <Button
+                    variant="ghost"
+                    className="group/btn p-0 h-auto text-purple-500 hover:text-purple-600 hover:bg-transparent"
+                    data-testid={`button-service-learn-more-${index}`}
+                  >
+                    Learn More
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
+                  </Button>
+                </Link>
               </Card>
             </motion.div>
           ))}
         </div>
       </div>
-
-      <Dialog open={!!selectedService} onOpenChange={() => setSelectedService(null)}>
-        <DialogContent className="sm:max-w-lg" data-testid="dialog-service-details">
-          {selectedService && (
-            <>
-              <DialogHeader>
-                <div
-                  className={`inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-r ${selectedService.color} text-white mb-4`}
-                >
-                  {selectedService.icon}
-                </div>
-                <DialogTitle className="text-xl">{selectedService.title}</DialogTitle>
-                <DialogDescription className="text-base leading-relaxed pt-2">
-                  {selectedService.details}
-                </DialogDescription>
-              </DialogHeader>
-              <div className="mt-4">
-                <Button
-                  className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0"
-                  onClick={() => {
-                    setSelectedService(null);
-                    document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
-                  }}
-                  data-testid="button-service-book-now"
-                >
-                  Book a Session
-                </Button>
-              </div>
-            </>
-          )}
-        </DialogContent>
-      </Dialog>
     </section>
   );
 }
