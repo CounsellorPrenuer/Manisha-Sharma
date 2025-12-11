@@ -71,7 +71,7 @@ export function CustomCursor() {
       
       {trails.map((trail, index) => (
         <div
-          key={trail.id}
+          key={`trail-${trail.id}-${index}`}
           className="fixed pointer-events-none z-[9998] rounded-full bg-gradient-to-r from-purple-500 to-pink-500"
           style={{
             left: trail.x - 3,

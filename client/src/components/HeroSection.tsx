@@ -71,32 +71,38 @@ export function HeroSection() {
             </Button>
           </div>
 
-          <div className="flex items-center justify-center gap-8 mt-12">
+          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 mt-12">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="text-center"
+              className="text-center cursor-pointer"
+              onClick={() => scrollToSection("#about")}
+              data-hoverable
             >
               <p className="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">500+</p>
               <p className="text-sm text-muted-foreground">Students Coached</p>
             </motion.div>
-            <div className="w-px h-10 bg-border" />
+            <div className="w-px h-10 bg-border hidden sm:block" />
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
-              className="text-center"
+              className="text-center cursor-pointer"
+              onClick={() => scrollToSection("#testimonials")}
+              data-hoverable
             >
               <p className="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">95%</p>
               <p className="text-sm text-muted-foreground">Success Rate</p>
             </motion.div>
-            <div className="w-px h-10 bg-border" />
+            <div className="w-px h-10 bg-border hidden sm:block" />
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7 }}
-              className="text-center"
+              className="text-center cursor-pointer"
+              onClick={() => scrollToSection("#about")}
+              data-hoverable
             >
               <p className="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">10+</p>
               <p className="text-sm text-muted-foreground">Years Experience</p>

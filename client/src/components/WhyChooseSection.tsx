@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import {
   Lightbulb,
   Target,
@@ -8,7 +9,12 @@ import {
   Zap,
   Shield,
   Award,
+  ArrowRight,
 } from "lucide-react";
+
+const scrollToSection = (selector: string) => {
+  document.querySelector(selector)?.scrollIntoView({ behavior: "smooth" });
+};
 
 const features = [
   {
@@ -99,6 +105,23 @@ export function WhyChooseSection() {
             </motion.div>
           ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="text-center mt-12"
+        >
+          <Button
+            size="lg"
+            className="bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0 shadow-lg"
+            onClick={() => scrollToSection("#pricing")}
+            data-testid="button-why-choose-get-started"
+          >
+            Get Started Today
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </Button>
+        </motion.div>
       </div>
     </section>
   );

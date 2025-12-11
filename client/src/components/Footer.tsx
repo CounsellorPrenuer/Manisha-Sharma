@@ -125,10 +125,10 @@ export function Footer() {
                 {services.map((service) => (
                   <li key={service}>
                     <a
-                      href="#services"
+                      href="#pricing"
                       onClick={(e) => {
                         e.preventDefault();
-                        scrollToSection("#services");
+                        scrollToSection("#pricing");
                       }}
                       className="text-sm text-muted-foreground hover:text-purple-500 transition-colors"
                       data-hoverable

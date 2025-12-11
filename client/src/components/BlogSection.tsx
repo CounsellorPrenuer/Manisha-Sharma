@@ -211,6 +211,25 @@ export function BlogSection() {
             <p className="text-muted-foreground">No articles found matching your criteria.</p>
           </div>
         )}
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="text-center mt-12"
+        >
+          <Button
+            variant="outline"
+            size="lg"
+            className="border-purple-500/50 text-purple-600 dark:text-purple-400"
+            onClick={() => {
+              document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
+            }}
+            data-testid="button-blog-subscribe"
+          >
+            Subscribe for Updates
+          </Button>
+        </motion.div>
       </div>
 
       <Dialog open={!!selectedPost} onOpenChange={() => setSelectedPost(null)}>

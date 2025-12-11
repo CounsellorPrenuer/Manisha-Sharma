@@ -269,6 +269,9 @@ export function ContactSection() {
                 variant="outline"
                 className="border-purple-500/50 text-purple-600 dark:text-purple-400 hover:bg-purple-500/10"
                 data-testid="button-contact-free-consultation"
+                onClick={() => {
+                  window.open("https://calendly.com", "_blank");
+                }}
               >
                 Schedule Now
               </Button>

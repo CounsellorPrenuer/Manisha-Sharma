@@ -1,7 +1,12 @@
 import { useEffect, useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Award, Users, TrendingUp, Clock, GraduationCap, Briefcase, Target } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Award, Users, TrendingUp, Clock, GraduationCap, Briefcase, Target, ArrowRight } from "lucide-react";
 import manishaImage from "@assets/I_-_Manisha_Sharma_1765429559286.jpg";
+
+const scrollToSection = (selector: string) => {
+  document.querySelector(selector)?.scrollIntoView({ behavior: "smooth" });
+};
 
 interface CounterProps {
   end: number;
@@ -117,7 +122,7 @@ export function AboutSection() {
               success mindset coaching, and professional development. My approach combines 
               psychological insights with practical strategies to help you achieve extraordinary results.
             </p>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-3 mb-6">
               {["Career Guidance", "Mindset Coaching", "Interview Prep", "Resume Building"].map((skill) => (
                 <span
                   key={skill}
@@ -127,6 +132,14 @@ export function AboutSection() {
                 </span>
               ))}
             </div>
+            <Button
+              className="bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0"
+              onClick={() => scrollToSection("#contact")}
+              data-testid="button-about-connect"
+            >
+              Let's Connect
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
           </motion.div>
         </div>
 
