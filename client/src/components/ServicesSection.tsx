@@ -1,0 +1,167 @@
+import { useState, useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import {
+  GraduationCap,
+  Brain,
+  RefreshCw,
+  Mic,
+  FileText,
+  School,
+  ArrowRight,
+} from "lucide-react";
+
+interface Service {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  details: string;
+  color: string;
+}
+
+const services: Service[] = [
+  {
+    icon: <GraduationCap className="h-8 w-8" />,
+    title: "Career Guidance for Students",
+    description: "Navigate academic choices and career paths with expert guidance tailored to your unique strengths.",
+    details: "Our comprehensive career guidance program helps students discover their passions, understand their aptitudes, and make informed decisions about their academic and professional futures. We provide personalized assessments, one-on-one counseling, and actionable roadmaps.",
+    color: "from-purple-500 to-blue-500",
+  },
+  {
+    icon: <Brain className="h-8 w-8" />,
+    title: "Success Mindset Coaching",
+    description: "Develop the mental frameworks and habits that drive exceptional achievement.",
+    details: "Transform your thinking patterns to unlock your full potential. Our mindset coaching program covers goal setting, overcoming limiting beliefs, building resilience, and developing the psychological tools needed for sustained success in any field.",
+    color: "from-blue-500 to-cyan-500",
+  },
+  {
+    icon: <RefreshCw className="h-8 w-8" />,
+    title: "Career Transition Coaching",
+    description: "Seamlessly navigate career changes with confidence and strategic planning.",
+    details: "Whether you're switching industries, returning to work, or seeking advancement, our transition coaching provides the strategic framework you need. We help you identify transferable skills, build new competencies, and create a compelling narrative for your next chapter.",
+    color: "from-cyan-500 to-teal-500",
+  },
+  {
+    icon: <Mic className="h-8 w-8" />,
+    title: "Interview Preparation",
+    description: "Master the art of interviewing with proven techniques and personalized practice.",
+    details: "Our intensive interview preparation includes mock interviews, body language training, answer frameworks for common questions, and strategies for handling stress. We prepare you for both technical and behavioral interviews across industries.",
+    color: "from-teal-500 to-green-500",
+  },
+  {
+    icon: <FileText className="h-8 w-8" />,
+    title: "Resume Building",
+    description: "Craft compelling resumes that stand out and tell your unique story.",
+    details: "Your resume is your first impression. We help you create ATS-friendly, visually appealing resumes that highlight your achievements and potential. Our service includes LinkedIn optimization and cover letter writing.",
+    color: "from-orange-500 to-pink-500",
+  },
+  {
+    icon: <School className="h-8 w-8" />,
+    title: "College Selection Guidance",
+    description: "Find the perfect educational institution to match your goals and aspirations.",
+    details: "Making the right college choice is crucial for your career success. We provide comprehensive guidance on course selection, university research, application strategies, and scholarship opportunities both in India and abroad.",
+    color: "from-pink-500 to-purple-500",
+  },
+];
+
+export function ServicesSection() {
+  const [selectedService, setSelectedService] = useState<Service | null>(null);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  return (
+    <section id="services" className="py-20 bg-muted/30" data-testid="section-services">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          ref={ref}
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+            <span className="bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500 bg-clip-text text-transparent">
+              Services Offered
+            </span>
+          </h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Comprehensive coaching solutions designed to accelerate your professional growth
+          </p>
+        </motion.div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {services.map((service, index) => (
+            <motion.div
+              key={service.title}
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <Card
+                className="group relative p-6 h-full border-border/50 bg-card/50 backdrop-blur-sm overflow-visible transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                data-testid={`card-service-${index}`}
+              >
+                <div className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-lg" />
+                
+                <div
+                  className={`inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-r ${service.color} text-white mb-4 shadow-lg`}
+                >
+                  {service.icon}
+                </div>
+
+                <h3 className="text-lg font-bold text-foreground mb-2">{service.title}</h3>
+                <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                  {service.description}
+                </p>
+
+                <Button
+                  variant="ghost"
+                  className="group/btn p-0 h-auto text-purple-500 hover:text-purple-600 hover:bg-transparent"
+                  onClick={() => setSelectedService(service)}
+                  data-testid={`button-service-learn-more-${index}`}
+                >
+                  Learn More
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
+                </Button>
+              </Card>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      <Dialog open={!!selectedService} onOpenChange={() => setSelectedService(null)}>
+        <DialogContent className="sm:max-w-lg" data-testid="dialog-service-details">
+          {selectedService && (
+            <>
+              <DialogHeader>
+                <div
+                  className={`inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-r ${selectedService.color} text-white mb-4`}
+                >
+                  {selectedService.icon}
+                </div>
+                <DialogTitle className="text-xl">{selectedService.title}</DialogTitle>
+                <DialogDescription className="text-base leading-relaxed pt-2">
+                  {selectedService.details}
+                </DialogDescription>
+              </DialogHeader>
+              <div className="mt-4">
+                <Button
+                  className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0"
+                  onClick={() => {
+                    setSelectedService(null);
+                    document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  data-testid="button-service-book-now"
+                >
+                  Book a Session
+                </Button>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
+    </section>
+  );
+}
