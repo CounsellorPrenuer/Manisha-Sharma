@@ -210,11 +210,19 @@ export function Footer() {
         <div className="border-t border-border/50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-              <p className="text-sm text-muted-foreground">
-                © {new Date().getFullYear()} Marichi World. All rights reserved.
-              </p>
+              <div className="text-center md:text-left">
+                <p className="text-sm text-muted-foreground">
+                  © {new Date().getFullYear()} Marichi World. All rights reserved.
+                </p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  In partnership with Mentoria for enhanced career guidance services.
+                </p>
+                <a href="#" className="text-xs text-muted-foreground hover:text-foreground underline mt-1 inline-block" data-testid="link-privacy-policy">
+                  Privacy Policy
+                </a>
+              </div>
               <p className="text-sm text-muted-foreground flex items-center gap-1">
-                Made with <Heart className="h-4 w-4 text-pink-500 fill-pink-500" /> by Manisha Sharma
+                Made with <Heart className="h-4 w-4 text-amber-500 fill-amber-500" /> by Manisha Sharma
               </p>
             </div>
           </div>
