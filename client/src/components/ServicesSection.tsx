@@ -27,7 +27,7 @@ const services: Service[] = [
     title: "Career Guidance for Students",
     description: "Navigate academic choices and career paths with expert guidance tailored to your unique strengths.",
     slug: "career-guidance",
-    color: "from-purple-500 to-blue-500",
+    color: "from-teal-600 to-emerald-500",
   },
   {
     icon: <Brain className="h-8 w-8" />,
@@ -81,7 +81,7 @@ export function ServicesSection() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-teal-600 via-emerald-500 to-amber-500 bg-clip-text text-transparent">
               Services Offered
             </span>
           </h2>

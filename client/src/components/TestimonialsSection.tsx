@@ -71,7 +71,7 @@ export function TestimonialsSection() {
 
   return (
     <section id="testimonials" className="py-20 relative overflow-hidden" data-testid="section-testimonials">
-      <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 via-transparent to-pink-500/5" />
+      <div className="absolute inset-0 bg-gradient-to-r from-teal-600/5 via-transparent to-amber-500/5" />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <motion.div
@@ -82,7 +82,7 @@ export function TestimonialsSection() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-teal-600 via-emerald-500 to-amber-500 bg-clip-text text-transparent">
               What My Clients Say
             </span>
           </h2>
@@ -103,10 +103,10 @@ export function TestimonialsSection() {
               transition={{ duration: 0.5 }}
             >
               <Card
-                className="p-8 md:p-12 border-2 border-transparent bg-gradient-to-r from-purple-500/10 via-blue-500/10 to-pink-500/10 backdrop-blur-sm relative overflow-hidden"
+                className="p-8 md:p-12 border-2 border-transparent bg-gradient-to-r from-teal-600/10 via-emerald-500/10 to-amber-500/10 backdrop-blur-sm relative overflow-hidden"
                 data-testid={`card-testimonial-${currentIndex}`}
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500 opacity-10" />
+                <div className="absolute inset-0 bg-gradient-to-r from-teal-600 via-emerald-500 to-amber-500 opacity-10" />
                 <div className="absolute inset-[2px] bg-card rounded-lg" />
                 
                 <div className="relative z-10">
@@ -157,7 +157,7 @@ export function TestimonialsSection() {
                   onClick={() => goToSlide(index)}
                   className={`w-3 h-3 rounded-full transition-all duration-300 ${
                     index === currentIndex
-                      ? "bg-gradient-to-r from-purple-500 to-pink-500 w-8"
+                      ? "bg-gradient-to-r from-teal-600 to-emerald-500 w-8"
                       : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
                   }`}
                   data-testid={`button-testimonial-dot-${index}`}

@@ -266,7 +266,7 @@ export default function ServiceDetail() {
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="sticky top-24"
               >
-                <Card className="p-6 border-border/50 bg-gradient-to-br from-purple-500/10 via-blue-500/10 to-pink-500/10 backdrop-blur-sm">
+                <Card className="p-6 border-border/50 bg-gradient-to-br from-teal-600/10 via-emerald-500/10 to-amber-500/10 backdrop-blur-sm">
                   <h3 className="text-xl font-bold mb-4">Ready to Get Started?</h3>
                   <p className="text-muted-foreground mb-6">
                     Take the first step towards your career goals. Book a consultation today and let's discuss how we can help you succeed.
@@ -274,7 +274,7 @@ export default function ServiceDetail() {
                   
                   <div className="space-y-3">
                     <Button
-                      className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0"
+                      className="w-full bg-gradient-to-r from-teal-600 to-emerald-500 text-white border-0"
                       onClick={() => setLocation("/#pricing")}
                       data-testid="button-service-book-now"
                     >
@@ -282,7 +282,7 @@ export default function ServiceDetail() {
                     </Button>
                     <Button
                       variant="outline"
-                      className="w-full border-purple-500/50 text-purple-600 dark:text-purple-400"
+                      className="w-full border-teal-600/50 text-purple-600 dark:text-purple-400"
                       onClick={() => setLocation("/#contact")}
                       data-testid="button-service-contact"
                     >

@@ -89,7 +89,7 @@ export function ContactSection() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-teal-600 via-emerald-500 to-amber-500 bg-clip-text text-transparent">
               Get in Touch
             </span>
           </h2>
@@ -180,7 +180,7 @@ export function ContactSection() {
                 <Button
                   type="submit"
                   size="lg"
-                  className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0"
+                  className="w-full bg-gradient-to-r from-teal-600 to-emerald-500 text-white border-0"
                   disabled={isSubmitting || isSubmitted}
                   data-testid="button-contact-submit"
                 >
@@ -221,7 +221,7 @@ export function ContactSection() {
                   data-testid="link-contact-email"
                   data-hoverable
                 >
-                  <div className="w-12 h-12 rounded-lg bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center text-white group-hover:scale-110 transition-transform">
+                  <div className="w-12 h-12 rounded-lg bg-gradient-to-r from-teal-600 to-emerald-500 flex items-center justify-center text-white group-hover:scale-110 transition-transform">
                     <Mail className="h-5 w-5" />
                   </div>
                   <div>
@@ -280,14 +280,14 @@ export function ContactSection() {
               </div>
             </div>
 
-            <Card className="p-6 border-purple-500/30 bg-gradient-to-br from-purple-500/10 to-pink-500/10">
+            <Card className="p-6 border-purple-500/30 bg-gradient-to-br from-teal-600/10 to-amber-500/10">
               <h4 className="font-bold text-foreground mb-2">Book a Free Consultation</h4>
               <p className="text-sm text-muted-foreground mb-4">
                 Not sure where to start? Book a complimentary 30-minute consultation to discuss your career goals.
               </p>
               <Button
                 variant="outline"
-                className="border-purple-500/50 text-purple-600 dark:text-purple-400 hover:bg-purple-500/10"
+                className="border-teal-600/50 text-purple-600 dark:text-purple-400 hover:bg-purple-500/10"
                 data-testid="button-contact-free-consultation"
                 onClick={() => {
                   window.open("https://calendly.com", "_blank");

@@ -72,7 +72,7 @@ export function Footer() {
 
   return (
     <footer className="relative" data-testid="footer">
-      <div className="h-1 bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500" />
+      <div className="h-1 bg-gradient-to-r from-teal-600 via-emerald-500 to-amber-500" />
       
       <div className="bg-card border-t border-border/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -88,7 +88,7 @@ export function Footer() {
                 data-testid="link-footer-logo"
               >
                 <img src={logoImage} alt="Marichi World" className="h-14 w-14 object-contain" />
-                <span className="text-2xl font-bold bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500 bg-clip-text text-transparent">
+                <span className="text-2xl font-bold bg-gradient-to-r from-teal-600 via-emerald-500 to-amber-500 bg-clip-text text-transparent">
                   Marichi World
                 </span>
               </a>
@@ -173,7 +173,7 @@ export function Footer() {
                 />
                 <Button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0"
+                  className="w-full bg-gradient-to-r from-teal-600 to-emerald-500 text-white border-0"
                   data-testid="button-newsletter-subscribe"
                 >
                   Subscribe

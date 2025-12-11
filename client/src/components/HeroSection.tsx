@@ -16,7 +16,7 @@ export function HeroSection() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16"
       data-testid="section-hero"
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 via-blue-500/10 to-pink-500/20 dark:from-purple-900/30 dark:via-blue-900/20 dark:to-pink-900/30" />
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 via-emerald-500/10 to-pink-500/20 dark:from-teal-900/30 dark:via-emerald-900/20 dark:to-amber-900/30" />
       
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500/30 rounded-full blur-3xl animate-blob" />
@@ -39,7 +39,7 @@ export function HeroSection() {
           </div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-            <span className="bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-teal-600 via-emerald-500 to-amber-500 bg-clip-text text-transparent">
               Transform Your Career
             </span>
             <br />
@@ -54,7 +54,7 @@ export function HeroSection() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               size="lg"
-              className="bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0 shadow-lg shadow-purple-500/25"
+              className="bg-gradient-to-r from-teal-600 to-emerald-500 text-white border-0 shadow-lg shadow-teal-600/25"
               onClick={() => scrollToSection("#contact")}
               data-testid="button-hero-consultation"
             >
@@ -80,7 +80,7 @@ export function HeroSection() {
               onClick={() => scrollToSection("#about")}
               data-hoverable
             >
-              <p className="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">500+</p>
+              <p className="text-2xl font-bold bg-gradient-to-r from-teal-600 to-emerald-500 bg-clip-text text-transparent">500+</p>
               <p className="text-sm text-muted-foreground">Students Coached</p>
             </motion.div>
             <div className="w-px h-10 bg-border hidden sm:block" />
@@ -92,7 +92,7 @@ export function HeroSection() {
               onClick={() => scrollToSection("#testimonials")}
               data-hoverable
             >
-              <p className="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">95%</p>
+              <p className="text-2xl font-bold bg-gradient-to-r from-teal-600 to-emerald-500 bg-clip-text text-transparent">95%</p>
               <p className="text-sm text-muted-foreground">Success Rate</p>
             </motion.div>
             <div className="w-px h-10 bg-border hidden sm:block" />
@@ -104,7 +104,7 @@ export function HeroSection() {
               onClick={() => scrollToSection("#about")}
               data-hoverable
             >
-              <p className="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">10+</p>
+              <p className="text-2xl font-bold bg-gradient-to-r from-teal-600 to-emerald-500 bg-clip-text text-transparent">10+</p>
               <p className="text-sm text-muted-foreground">Years Experience</p>
             </motion.div>
           </div>

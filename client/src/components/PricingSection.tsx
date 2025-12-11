@@ -263,7 +263,7 @@ export function PricingSection() {
           className="text-center mb-12"
         >
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-teal-600 via-emerald-500 to-amber-500 bg-clip-text text-transparent">
               Choose Your Plan
             </span>
           </h2>
@@ -285,7 +285,7 @@ export function PricingSection() {
               onClick={() => setActiveCategory(category.id)}
               className={
                 activeCategory === category.id
-                  ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0"
+                  ? "bg-gradient-to-r from-teal-600 to-emerald-500 text-white border-0"
                   : ""
               }
               data-testid={`button-pricing-tab-${category.id}`}
@@ -306,13 +306,13 @@ export function PricingSection() {
               <Card
                 className={`relative p-8 h-full border-2 ${
                   pkg.isPremium
-                    ? "border-purple-500/50 bg-gradient-to-br from-purple-500/5 to-pink-500/5"
+                    ? "border-teal-600/50 bg-gradient-to-br from-teal-600/5 to-amber-500/5"
                     : "border-border/50"
                 }`}
                 data-testid={`card-pricing-${pkg.planName.toLowerCase().replace(/\s+/g, "-")}`}
               >
                 {pkg.isPremium && (
-                  <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0">
+                  <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-teal-600 to-emerald-500 text-white border-0">
                     <Crown className="w-3 h-3 mr-1" />
                     Premium
                   </Badge>
@@ -324,7 +324,7 @@ export function PricingSection() {
                   </p>
                   <h3 className="text-2xl font-bold text-foreground mb-4">{pkg.planName}</h3>
                   <div className="flex items-baseline justify-center gap-1">
-                    <span className="text-4xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
+                    <span className="text-4xl font-bold bg-gradient-to-r from-teal-600 to-emerald-500 bg-clip-text text-transparent">
                       ₹{pkg.price.toLocaleString("en-IN")}
                     </span>
                   </div>
@@ -352,7 +352,7 @@ export function PricingSection() {
                 <Button
                   className={`w-full ${
                     pkg.isPremium
-                      ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0"
+                      ? "bg-gradient-to-r from-teal-600 to-emerald-500 text-white border-0"
                       : ""
                   }`}
                   variant={pkg.isPremium ? "default" : "outline"}

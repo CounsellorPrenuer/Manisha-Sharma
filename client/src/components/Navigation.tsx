@@ -59,7 +59,7 @@ export function Navigation() {
               data-hoverable
             >
               <img src={logoImage} alt="Marichi World" className="h-10 w-10 object-contain" />
-              <span className="text-xl font-bold bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500 bg-clip-text text-transparent">
+              <span className="text-xl font-bold bg-gradient-to-r from-teal-600 via-emerald-500 to-amber-500 bg-clip-text text-transparent">
                 Marichi World
               </span>
             </a>
@@ -98,7 +98,7 @@ export function Navigation() {
               </Button>
 
               <Button
-                className="hidden md:inline-flex bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0"
+                className="hidden md:inline-flex bg-gradient-to-r from-teal-600 to-emerald-500 text-white border-0"
                 data-testid="button-book-consultation"
                 onClick={() => scrollToSection("#contact")}
               >
@@ -147,7 +147,7 @@ export function Navigation() {
                 </a>
               ))}
               <Button
-                className="mt-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0 w-full max-w-xs"
+                className="mt-4 bg-gradient-to-r from-teal-600 to-emerald-500 text-white border-0 w-full max-w-xs"
                 onClick={() => scrollToSection("#contact")}
                 data-testid="button-mobile-consultation"
               >

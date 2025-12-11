@@ -42,10 +42,10 @@ function AnimatedCounter({ end, suffix = "", label, icon }: CounterProps) {
 
   return (
     <div ref={ref} className="text-center">
-      <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 mb-3">
+      <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-teal-600/20 to-emerald-500/20 mb-3">
         {icon}
       </div>
-      <p className="text-3xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
+      <p className="text-3xl font-bold bg-gradient-to-r from-teal-600 to-emerald-500 bg-clip-text text-transparent">
         {count}{suffix}
       </p>
       <p className="text-sm text-muted-foreground mt-1">{label}</p>
@@ -77,7 +77,7 @@ export function AboutSection() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-teal-600 via-emerald-500 to-amber-500 bg-clip-text text-transparent">
               About Me
             </span>
           </h2>
@@ -94,7 +94,7 @@ export function AboutSection() {
             className="relative"
           >
             <div className="relative mx-auto w-fit">
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl blur-xl opacity-30" />
+              <div className="absolute inset-0 bg-gradient-to-r from-teal-600 to-emerald-500 rounded-2xl blur-xl opacity-30" />
               <div className="relative w-72 h-72 sm:w-80 sm:h-80 rounded-2xl overflow-hidden border-2 border-purple-500/30">
                 <img
                   src={manishaImage}
@@ -133,7 +133,7 @@ export function AboutSection() {
               ))}
             </div>
             <Button
-              className="bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0"
+              className="bg-gradient-to-r from-teal-600 to-emerald-500 text-white border-0"
               onClick={() => scrollToSection("#contact")}
               data-testid="button-about-connect"
             >
@@ -182,7 +182,7 @@ export function AboutSection() {
         >
           <h3 className="text-xl font-bold text-center mb-8">My Journey</h3>
           <div className="relative">
-            <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-purple-500 via-blue-500 to-pink-500 hidden md:block" />
+            <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-teal-600 via-emerald-500 to-amber-500 hidden md:block" />
             
             <div className="space-y-8 md:space-y-0 md:grid md:grid-cols-4 gap-8">
               {timeline.map((item, index) => (
@@ -193,7 +193,7 @@ export function AboutSection() {
                   transition={{ delay: 0.6 + index * 0.1 }}
                   className="relative text-center"
                 >
-                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white mb-3 mx-auto relative z-10">
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-teal-600 to-emerald-500 text-white mb-3 mx-auto relative z-10">
                     <item.icon className="h-5 w-5" />
                   </div>
                   <p className="font-bold text-foreground">{item.year}</p>

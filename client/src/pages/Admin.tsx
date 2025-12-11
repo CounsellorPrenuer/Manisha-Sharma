@@ -254,7 +254,7 @@ export default function Admin() {
           <div className="flex items-center justify-between h-16 gap-4">
             <div className="flex items-center gap-4">
               <Button variant="ghost" size="icon" onClick={() => setLocation("/")} data-testid="button-admin-home"><ArrowLeft className="h-5 w-5" /></Button>
-              <h1 className="text-xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">Admin Dashboard</h1>
+              <h1 className="text-xl font-bold bg-gradient-to-r from-teal-600 to-emerald-500 bg-clip-text text-transparent">Admin Dashboard</h1>
             </div>
             <Button variant="outline" size="sm" onClick={() => refetchStats()} data-testid="button-admin-refresh"><RefreshCw className="h-4 w-4 mr-2" />Refresh</Button>
           </div>
@@ -285,7 +285,7 @@ export default function Admin() {
               <div className="flex items-center justify-between gap-4 mb-6">
                 <div className="flex items-center gap-4"><h2 className="text-xl font-bold">Manage Reviews</h2><Badge variant="secondary">{reviews?.length || 0} reviews</Badge></div>
                 <Dialog open={reviewDialogOpen} onOpenChange={setReviewDialogOpen}>
-                  <DialogTrigger asChild><Button className="bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0"><Plus className="h-4 w-4 mr-2" />Add Review</Button></DialogTrigger>
+                  <DialogTrigger asChild><Button className="bg-gradient-to-r from-teal-600 to-emerald-500 text-white border-0"><Plus className="h-4 w-4 mr-2" />Add Review</Button></DialogTrigger>
                   <DialogContent className="max-w-lg">
                     <DialogHeader><DialogTitle>{editingReview ? "Edit Review" : "Add New Review"}</DialogTitle></DialogHeader>
                     <div className="space-y-4 mt-4">
@@ -319,7 +319,7 @@ export default function Admin() {
                     <Card key={review.id} className="p-4">
                       <div className="flex items-start justify-between gap-4">
                         <div className="flex items-center gap-3">
-                          {review.imageUrl ? <img src={review.imageUrl} alt={review.name} className="h-12 w-12 rounded-full object-cover" /> : <div className="h-12 w-12 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold">{review.name.charAt(0)}</div>}
+                          {review.imageUrl ? <img src={review.imageUrl} alt={review.name} className="h-12 w-12 rounded-full object-cover" /> : <div className="h-12 w-12 rounded-full bg-gradient-to-r from-teal-600 to-emerald-500 flex items-center justify-center text-white font-bold">{review.name.charAt(0)}</div>}
                           <div><p className="font-medium">{review.name}</p><p className="text-sm text-muted-foreground">{review.role} at {review.company}</p></div>
                         </div>
                         <div className="flex items-center gap-1">
@@ -344,7 +344,7 @@ export default function Admin() {
               <div className="flex items-center justify-between gap-4 mb-6">
                 <div className="flex items-center gap-4"><h2 className="text-xl font-bold">Manage Blog Posts</h2><Badge variant="secondary">{blogs?.length || 0} posts</Badge></div>
                 <Dialog open={blogDialogOpen} onOpenChange={setBlogDialogOpen}>
-                  <DialogTrigger asChild><Button className="bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0"><Plus className="h-4 w-4 mr-2" />Add Blog Post</Button></DialogTrigger>
+                  <DialogTrigger asChild><Button className="bg-gradient-to-r from-teal-600 to-emerald-500 text-white border-0"><Plus className="h-4 w-4 mr-2" />Add Blog Post</Button></DialogTrigger>
                   <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
                     <DialogHeader><DialogTitle>{editingBlog ? "Edit Blog Post" : "Add New Blog Post"}</DialogTitle></DialogHeader>
                     <div className="space-y-4 mt-4">
@@ -377,7 +377,7 @@ export default function Admin() {
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {blogs?.map(post => (
                     <Card key={post.id} className="overflow-hidden">
-                      {post.imageUrl ? <img src={post.imageUrl} alt={post.title} className="h-32 w-full object-cover" /> : <div className="h-32 w-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center"><Image className="h-8 w-8 text-white/50" /></div>}
+                      {post.imageUrl ? <img src={post.imageUrl} alt={post.title} className="h-32 w-full object-cover" /> : <div className="h-32 w-full bg-gradient-to-r from-teal-600 to-emerald-500 flex items-center justify-center"><Image className="h-8 w-8 text-white/50" /></div>}
                       <div className="p-4">
                         <div className="flex items-center justify-between mb-2"><Badge variant="secondary">{post.category}</Badge><Badge variant={post.isPublished ? "default" : "outline"}>{post.isPublished ? "Published" : "Draft"}</Badge></div>
                         <h3 className="font-medium line-clamp-2">{post.title}</h3>

@@ -72,7 +72,7 @@ export function CustomCursor() {
       {trails.map((trail, index) => (
         <div
           key={`trail-${trail.id}-${index}`}
-          className="fixed pointer-events-none z-[9998] rounded-full bg-gradient-to-r from-purple-500 to-pink-500"
+          className="fixed pointer-events-none z-[9998] rounded-full bg-gradient-to-r from-teal-600 to-emerald-500"
           style={{
             left: trail.x - 3,
             top: trail.y - 3,
@@ -88,8 +88,8 @@ export function CustomCursor() {
       <div
         className={`fixed pointer-events-none z-[9999] rounded-full transition-all duration-150 ease-out ${
           isHovering
-            ? "w-12 h-12 bg-gradient-to-r from-purple-500/30 to-pink-500/30 backdrop-blur-sm border-2 border-purple-400"
-            : "w-5 h-5 bg-gradient-to-r from-purple-500 to-pink-500"
+            ? "w-12 h-12 bg-gradient-to-r from-teal-600/30 to-emerald-500/30 backdrop-blur-sm border-2 border-teal-400"
+            : "w-5 h-5 bg-gradient-to-r from-teal-600 to-emerald-500"
         }`}
         style={{
           left: position.x - (isHovering ? 24 : 10),
@@ -102,7 +102,7 @@ export function CustomCursor() {
       />
       
       <div
-        className="fixed pointer-events-none z-[9998] w-8 h-8 rounded-full border border-purple-400/50 transition-all duration-300 ease-out"
+        className="fixed pointer-events-none z-[9998] w-8 h-8 rounded-full border border-teal-400/50 transition-all duration-300 ease-out"
         style={{
           left: position.x - 16,
           top: position.y - 16,

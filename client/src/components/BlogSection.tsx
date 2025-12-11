@@ -109,7 +109,7 @@ export function BlogSection() {
           className="text-center mb-12"
         >
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-teal-600 via-emerald-500 to-amber-500 bg-clip-text text-transparent">
               Latest Articles
             </span>
           </h2>
@@ -142,7 +142,7 @@ export function BlogSection() {
                 variant={selectedCategory === category ? "default" : "outline"}
                 size="sm"
                 onClick={() => setSelectedCategory(category)}
-                className={selectedCategory === category ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0" : ""}
+                className={selectedCategory === category ? "bg-gradient-to-r from-teal-600 to-emerald-500 text-white border-0" : ""}
                 data-testid={`button-blog-category-${category.toLowerCase().replace(" ", "-")}`}
               >
                 {category}
@@ -221,7 +221,7 @@ export function BlogSection() {
           <Button
             variant="outline"
             size="lg"
-            className="border-purple-500/50 text-purple-600 dark:text-purple-400"
+            className="border-teal-600/50 text-purple-600 dark:text-purple-400"
             onClick={() => {
               document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
             }}

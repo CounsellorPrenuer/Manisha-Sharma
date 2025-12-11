@@ -58,7 +58,7 @@ export function PlatformSection() {
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">
             <span className="text-foreground">Powered by Mentoria's</span>
             <br />
-            <span className="bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-teal-600 via-emerald-500 to-amber-500 bg-clip-text text-transparent">
               Career Discovery Platform
             </span>
           </h2>
@@ -98,7 +98,7 @@ export function PlatformSection() {
         >
           <Button
             size="lg"
-            className="bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0 shadow-lg"
+            className="bg-gradient-to-r from-teal-600 to-emerald-500 text-white border-0 shadow-lg"
             onClick={() => scrollToSection("#pricing")}
             data-testid="button-platform-book-consultation"
           >
