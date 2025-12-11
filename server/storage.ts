@@ -1,4 +1,4 @@
-import { type User, type InsertUser, type Payment, type InsertPayment, type ContactSubmission, type NewsletterSubscription, type ButtonClick } from "@shared/schema";
+import { type User, type InsertUser, type Payment, type InsertPayment, type ContactSubmission, type NewsletterSubscription, type ButtonClick, type Review, type BlogPost } from "@shared/schema";
 import { randomUUID } from "crypto";
 
 export interface IStorage {
@@ -25,6 +25,14 @@ export interface IStorage {
     conversionRate: number;
     popularButtons: { name: string; clicks: number }[];
   }>;
+  createReview(review: Omit<Review, "id" | "createdAt">): Promise<Review>;
+  getAllReviews(): Promise<Review[]>;
+  updateReview(id: string, data: Partial<Review>): Promise<Review | undefined>;
+  deleteReview(id: string): Promise<boolean>;
+  createBlogPost(post: Omit<BlogPost, "id" | "createdAt">): Promise<BlogPost>;
+  getAllBlogPosts(): Promise<BlogPost[]>;
+  updateBlogPost(id: string, data: Partial<BlogPost>): Promise<BlogPost | undefined>;
+  deleteBlogPost(id: string): Promise<boolean>;
 }
 
 export class MemStorage implements IStorage {
@@ -33,6 +41,8 @@ export class MemStorage implements IStorage {
   private contacts: Map<string, ContactSubmission>;
   private subscribers: Map<string, NewsletterSubscription>;
   private buttonClicks: Map<string, ButtonClick>;
+  private reviews: Map<string, Review>;
+  private blogPosts: Map<string, BlogPost>;
   private visitorCount: number;
 
   constructor() {
@@ -41,6 +51,8 @@ export class MemStorage implements IStorage {
     this.contacts = new Map();
     this.subscribers = new Map();
     this.buttonClicks = new Map();
+    this.reviews = new Map();
+    this.blogPosts = new Map();
     this.visitorCount = 0;
   }
 
@@ -208,6 +220,68 @@ export class MemStorage implements IStorage {
       conversionRate,
       popularButtons,
     };
+  }
+
+  async createReview(review: Omit<Review, "id" | "createdAt">): Promise<Review> {
+    const id = randomUUID();
+    const newReview: Review = {
+      id,
+      ...review,
+      createdAt: new Date().toISOString(),
+    };
+    this.reviews.set(id, newReview);
+    return newReview;
+  }
+
+  async getAllReviews(): Promise<Review[]> {
+    return Array.from(this.reviews.values()).sort((a, b) => 
+      new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
+  }
+
+  async updateReview(id: string, data: Partial<Review>): Promise<Review | undefined> {
+    const review = this.reviews.get(id);
+    if (review) {
+      const updated = { ...review, ...data };
+      this.reviews.set(id, updated);
+      return updated;
+    }
+    return undefined;
+  }
+
+  async deleteReview(id: string): Promise<boolean> {
+    return this.reviews.delete(id);
+  }
+
+  async createBlogPost(post: Omit<BlogPost, "id" | "createdAt">): Promise<BlogPost> {
+    const id = randomUUID();
+    const newPost: BlogPost = {
+      id,
+      ...post,
+      createdAt: new Date().toISOString(),
+    };
+    this.blogPosts.set(id, newPost);
+    return newPost;
+  }
+
+  async getAllBlogPosts(): Promise<BlogPost[]> {
+    return Array.from(this.blogPosts.values()).sort((a, b) => 
+      new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
+  }
+
+  async updateBlogPost(id: string, data: Partial<BlogPost>): Promise<BlogPost | undefined> {
+    const post = this.blogPosts.get(id);
+    if (post) {
+      const updated = { ...post, ...data };
+      this.blogPosts.set(id, updated);
+      return updated;
+    }
+    return undefined;
+  }
+
+  async deleteBlogPost(id: string): Promise<boolean> {
+    return this.blogPosts.delete(id);
   }
 }
 

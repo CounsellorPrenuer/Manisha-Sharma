@@ -96,3 +96,49 @@ export const buttonClickSchema = z.object({
   buttonName: z.string(),
   section: z.string(),
 });
+
+export interface Review {
+  id: string;
+  name: string;
+  role: string;
+  company: string;
+  content: string;
+  rating: number;
+  imageUrl: string | null;
+  isActive: boolean;
+  createdAt: string;
+}
+
+export interface BlogPost {
+  id: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  category: string;
+  imageUrl: string | null;
+  author: string;
+  readTime: string;
+  isPublished: boolean;
+  createdAt: string;
+}
+
+export const reviewSchema = z.object({
+  name: z.string().min(2),
+  role: z.string().min(2),
+  company: z.string().min(2),
+  content: z.string().min(10),
+  rating: z.number().min(1).max(5),
+  imageUrl: z.string().optional(),
+  isActive: z.boolean().default(true),
+});
+
+export const blogPostSchema = z.object({
+  title: z.string().min(5),
+  excerpt: z.string().min(10),
+  content: z.string().min(50),
+  category: z.string(),
+  imageUrl: z.string().optional(),
+  author: z.string().default("Manisha Sharma"),
+  readTime: z.string().default("5 min read"),
+  isPublished: z.boolean().default(false),
+});

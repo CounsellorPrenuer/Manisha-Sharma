@@ -1,7 +1,27 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { createOrderSchema, verifyPaymentSchema, contactFormSchema, newsletterSchema, buttonClickSchema } from "@shared/schema";
+import { createOrderSchema, verifyPaymentSchema, contactFormSchema, newsletterSchema, buttonClickSchema, reviewSchema, blogPostSchema } from "@shared/schema";
+import multer from "multer";
+import path from "path";
+import fs from "fs";
+
+const uploadDir = path.join(process.cwd(), "uploads");
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
+
+const storage_upload = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, uploadDir);
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1E9);
+    cb(null, uniqueSuffix + path.extname(file.originalname));
+  }
+});
+
+const upload = multer({ storage: storage_upload });
 import crypto from "crypto";
 
 export async function registerRoutes(
@@ -105,6 +125,140 @@ export async function registerRoutes(
       res.status(500).json({ error: "Failed to get button clicks" });
     }
   });
+
+  // Reviews CRUD
+  app.get("/api/admin/reviews", async (req, res) => {
+    try {
+      const reviews = await storage.getAllReviews();
+      res.json(reviews);
+    } catch (error) {
+      console.error("Admin reviews error:", error);
+      res.status(500).json({ error: "Failed to get reviews" });
+    }
+  });
+
+  app.post("/api/admin/reviews", async (req, res) => {
+    try {
+      const validatedData = reviewSchema.parse(req.body);
+      const review = await storage.createReview({
+        name: validatedData.name,
+        role: validatedData.role,
+        company: validatedData.company,
+        content: validatedData.content,
+        rating: validatedData.rating,
+        imageUrl: validatedData.imageUrl || null,
+        isActive: validatedData.isActive ?? true,
+      });
+      res.json(review);
+    } catch (error) {
+      console.error("Create review error:", error);
+      res.status(400).json({ error: "Invalid request" });
+    }
+  });
+
+  app.patch("/api/admin/reviews/:id", async (req, res) => {
+    try {
+      const review = await storage.updateReview(req.params.id, req.body);
+      if (review) {
+        res.json(review);
+      } else {
+        res.status(404).json({ error: "Review not found" });
+      }
+    } catch (error) {
+      console.error("Update review error:", error);
+      res.status(400).json({ error: "Invalid request" });
+    }
+  });
+
+  app.delete("/api/admin/reviews/:id", async (req, res) => {
+    try {
+      const deleted = await storage.deleteReview(req.params.id);
+      if (deleted) {
+        res.json({ success: true });
+      } else {
+        res.status(404).json({ error: "Review not found" });
+      }
+    } catch (error) {
+      console.error("Delete review error:", error);
+      res.status(500).json({ error: "Failed to delete review" });
+    }
+  });
+
+  // Blog Posts CRUD
+  app.get("/api/admin/blogs", async (req, res) => {
+    try {
+      const posts = await storage.getAllBlogPosts();
+      res.json(posts);
+    } catch (error) {
+      console.error("Admin blogs error:", error);
+      res.status(500).json({ error: "Failed to get blog posts" });
+    }
+  });
+
+  app.post("/api/admin/blogs", async (req, res) => {
+    try {
+      const validatedData = blogPostSchema.parse(req.body);
+      const post = await storage.createBlogPost({
+        title: validatedData.title,
+        excerpt: validatedData.excerpt,
+        content: validatedData.content,
+        category: validatedData.category,
+        imageUrl: validatedData.imageUrl || null,
+        author: validatedData.author || "Manisha Sharma",
+        readTime: validatedData.readTime || "5 min read",
+        isPublished: validatedData.isPublished ?? false,
+      });
+      res.json(post);
+    } catch (error) {
+      console.error("Create blog error:", error);
+      res.status(400).json({ error: "Invalid request" });
+    }
+  });
+
+  app.patch("/api/admin/blogs/:id", async (req, res) => {
+    try {
+      const post = await storage.updateBlogPost(req.params.id, req.body);
+      if (post) {
+        res.json(post);
+      } else {
+        res.status(404).json({ error: "Blog post not found" });
+      }
+    } catch (error) {
+      console.error("Update blog error:", error);
+      res.status(400).json({ error: "Invalid request" });
+    }
+  });
+
+  app.delete("/api/admin/blogs/:id", async (req, res) => {
+    try {
+      const deleted = await storage.deleteBlogPost(req.params.id);
+      if (deleted) {
+        res.json({ success: true });
+      } else {
+        res.status(404).json({ error: "Blog post not found" });
+      }
+    } catch (error) {
+      console.error("Delete blog error:", error);
+      res.status(500).json({ error: "Failed to delete blog post" });
+    }
+  });
+
+  // Image Upload
+  app.post("/api/upload", upload.single("image"), (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ error: "No file uploaded" });
+      }
+      const imageUrl = `/uploads/${req.file.filename}`;
+      res.json({ imageUrl });
+    } catch (error) {
+      console.error("Upload error:", error);
+      res.status(500).json({ error: "Failed to upload file" });
+    }
+  });
+
+  // Serve uploaded files
+  app.use("/uploads", (await import("express")).default.static(uploadDir));
 
   app.post("/api/payment/create-order", async (req, res) => {
     try {
