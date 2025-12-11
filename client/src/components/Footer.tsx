@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { Mail, Phone, MapPin, Linkedin, Twitter, Instagram, Facebook, ArrowRight, Heart } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import logoImage from "@assets/IMG_2510_-_Manisha_Sharma_1765429548944.png";
 
 const quickLinks = [
   { label: "Home", href: "#home" },
@@ -67,10 +68,13 @@ export function Footer() {
                   e.preventDefault();
                   scrollToSection("#home");
                 }}
-                className="text-2xl font-bold bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500 bg-clip-text text-transparent"
+                className="flex items-center gap-3"
                 data-testid="link-footer-logo"
               >
-                Marichi World
+                <img src={logoImage} alt="Marichi World" className="h-14 w-14 object-contain" />
+                <span className="text-2xl font-bold bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500 bg-clip-text text-transparent">
+                  Marichi World
+                </span>
               </a>
               <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
                 Empowering individuals to discover their true potential and achieve career excellence through personalized coaching and guidance.

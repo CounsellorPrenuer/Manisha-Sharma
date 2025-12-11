@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Award, Users, TrendingUp, Clock, GraduationCap, Briefcase, Target } from "lucide-react";
-import manishaImage from "@assets/generated_images/manisha_sharma_professional_portrait.png";
+import manishaImage from "@assets/I_-_Manisha_Sharma_1765429559286.jpg";
 
 interface CounterProps {
   end: number;

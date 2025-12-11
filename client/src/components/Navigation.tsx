@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Moon, Sun, Menu, X } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
 import { motion, AnimatePresence } from "framer-motion";
+import logoImage from "@assets/IMG_2510_-_Manisha_Sharma_1765429548944.png";
 
 const navLinks = [
   { href: "#home", label: "Home" },
@@ -52,11 +53,14 @@ export function Navigation() {
                 e.preventDefault();
                 scrollToSection("#home");
               }}
-              className="text-xl font-bold bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500 bg-clip-text text-transparent"
+              className="flex items-center gap-2"
               data-testid="link-logo"
               data-hoverable
             >
-              Marichi World
+              <img src={logoImage} alt="Marichi World" className="h-10 w-10 object-contain" />
+              <span className="text-xl font-bold bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500 bg-clip-text text-transparent">
+                Marichi World
+              </span>
             </a>
 
             <div className="hidden md:flex items-center gap-1">
