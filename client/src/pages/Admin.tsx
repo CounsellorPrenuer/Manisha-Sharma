@@ -29,13 +29,11 @@ import {
   BarChart3,
   CreditCard,
   Mail,
-  MousePointer,
   TrendingUp,
   Eye,
   ArrowLeft,
   RefreshCw,
   Download,
-  Search,
   CheckCircle,
   Clock,
   XCircle,
@@ -52,7 +50,7 @@ import {
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
-import type { ContactSubmission, NewsletterSubscription, ButtonClick, Review, BlogPost } from "@shared/schema";
+import type { ContactSubmission, NewsletterSubscription, Review, BlogPost } from "@shared/schema";
 
 interface AdminPayment {
   id: string;
@@ -82,42 +80,10 @@ interface AdminStats {
   popularButtons: { name: string; clicks: number }[];
 }
 
-interface ButtonInfo {
-  id: string;
-  name: string;
-  section: string;
-  action: string;
-  clicks: number;
-  lastClicked: string | null;
-}
-
-const allButtons: ButtonInfo[] = [
-  { id: "nav-logo", name: "Logo", section: "Navigation", action: "Scroll to Home", clicks: 0, lastClicked: null },
-  { id: "nav-home", name: "Home", section: "Navigation", action: "Scroll to Home", clicks: 0, lastClicked: null },
-  { id: "nav-about", name: "About", section: "Navigation", action: "Scroll to About", clicks: 0, lastClicked: null },
-  { id: "nav-services", name: "Services", section: "Navigation", action: "Scroll to Services", clicks: 0, lastClicked: null },
-  { id: "nav-pricing", name: "Pricing", section: "Navigation", action: "Scroll to Pricing", clicks: 0, lastClicked: null },
-  { id: "nav-testimonials", name: "Testimonials", section: "Navigation", action: "Scroll to Testimonials", clicks: 0, lastClicked: null },
-  { id: "nav-blog", name: "Blog", section: "Navigation", action: "Scroll to Blog", clicks: 0, lastClicked: null },
-  { id: "nav-contact", name: "Contact", section: "Navigation", action: "Scroll to Contact", clicks: 0, lastClicked: null },
-  { id: "nav-book-consultation", name: "Book Consultation", section: "Navigation", action: "Scroll to Contact", clicks: 0, lastClicked: null },
-  { id: "hero-book-consultation", name: "Book Consultation", section: "Hero", action: "Scroll to Contact", clicks: 0, lastClicked: null },
-  { id: "hero-explore-services", name: "Explore Services", section: "Hero", action: "Scroll to Services", clicks: 0, lastClicked: null },
-  { id: "about-connect", name: "Let's Connect", section: "About", action: "Scroll to Contact", clicks: 0, lastClicked: null },
-  { id: "service-learn-more-0", name: "Career Guidance - Learn More", section: "Services", action: "Navigate to /services/career-guidance", clicks: 0, lastClicked: null },
-  { id: "service-learn-more-1", name: "Mindset Coaching - Learn More", section: "Services", action: "Navigate to /services/mindset-coaching", clicks: 0, lastClicked: null },
-  { id: "service-learn-more-2", name: "Career Transition - Learn More", section: "Services", action: "Navigate to /services/career-transition", clicks: 0, lastClicked: null },
-  { id: "pricing-buy-standard", name: "Buy Standard Package", section: "Pricing", action: "Initiate Razorpay Payment", clicks: 0, lastClicked: null },
-  { id: "pricing-buy-premium", name: "Buy Premium Package", section: "Pricing", action: "Initiate Razorpay Payment", clicks: 0, lastClicked: null },
-  { id: "contact-submit", name: "Send Message", section: "Contact", action: "Submit Contact Form", clicks: 0, lastClicked: null },
-  { id: "footer-newsletter", name: "Newsletter Subscribe", section: "Footer", action: "Subscribe to Newsletter", clicks: 0, lastClicked: null },
-];
-
 const blogCategories = ["Career Tips", "Mindset", "Interview", "Resume", "Success Stories"];
 
 export default function Admin() {
   const [, setLocation] = useLocation();
-  const [searchQuery, setSearchQuery] = useState("");
   const { toast } = useToast();
   
   const [reviewDialogOpen, setReviewDialogOpen] = useState(false);
@@ -151,10 +117,6 @@ export default function Admin() {
 
   const { data: payments, isLoading: paymentsLoading } = useQuery<AdminPayment[]>({
     queryKey: ["/api/admin/payments"],
-  });
-
-  const { data: buttonClicks } = useQuery<ButtonClick[]>({
-    queryKey: ["/api/admin/button-clicks"],
   });
 
   const { data: reviews, isLoading: reviewsLoading } = useQuery<Review[]>({
@@ -285,21 +247,6 @@ export default function Admin() {
     toast({ title: "Blog content generated!" });
   };
 
-  const getButtonsWithClicks = (): ButtonInfo[] => {
-    if (!buttonClicks) return allButtons;
-    return allButtons.map(button => {
-      const clickData = buttonClicks.find(c => c.buttonId === button.id);
-      return { ...button, clicks: clickData?.clickCount || 0, lastClicked: clickData?.lastClicked || null };
-    });
-  };
-
-  const filteredButtons = getButtonsWithClicks().filter(
-    button => button.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      button.section.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  const sections = Array.from(new Set(allButtons.map(b => b.section)));
-
   return (
     <div className="min-h-screen bg-background" data-testid="page-admin">
       <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/50">
@@ -315,9 +262,8 @@ export default function Admin() {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
           <Card className="p-4"><div className="flex items-center gap-3"><div className="p-2 rounded-lg bg-purple-500/10"><Eye className="h-5 w-5 text-purple-500" /></div><div><p className="text-2xl font-bold">{stats?.totalVisitors || 0}</p><p className="text-xs text-muted-foreground">Visitors</p></div></div></Card>
-          <Card className="p-4"><div className="flex items-center gap-3"><div className="p-2 rounded-lg bg-blue-500/10"><MousePointer className="h-5 w-5 text-blue-500" /></div><div><p className="text-2xl font-bold">{stats?.totalClicks || 0}</p><p className="text-xs text-muted-foreground">Clicks</p></div></div></Card>
           <Card className="p-4"><div className="flex items-center gap-3"><div className="p-2 rounded-lg bg-pink-500/10"><MessageSquare className="h-5 w-5 text-pink-500" /></div><div><p className="text-2xl font-bold">{stats?.totalContacts || 0}</p><p className="text-xs text-muted-foreground">Contacts</p></div></div></Card>
           <Card className="p-4"><div className="flex items-center gap-3"><div className="p-2 rounded-lg bg-cyan-500/10"><Mail className="h-5 w-5 text-cyan-500" /></div><div><p className="text-2xl font-bold">{stats?.totalSubscribers || 0}</p><p className="text-xs text-muted-foreground">Subscribers</p></div></div></Card>
           <Card className="p-4"><div className="flex items-center gap-3"><div className="p-2 rounded-lg bg-green-500/10"><CreditCard className="h-5 w-5 text-green-500" /></div><div><p className="text-2xl font-bold">{stats?.totalPayments || 0}</p><p className="text-xs text-muted-foreground">Payments</p></div></div></Card>
@@ -325,38 +271,14 @@ export default function Admin() {
           <Card className="p-4"><div className="flex items-center gap-3"><div className="p-2 rounded-lg bg-orange-500/10"><BarChart3 className="h-5 w-5 text-orange-500" /></div><div><p className="text-2xl font-bold">{stats?.conversionRate || 0}%</p><p className="text-xs text-muted-foreground">Conversion</p></div></div></Card>
         </div>
 
-        <Tabs defaultValue="buttons" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-6">
-            <TabsTrigger value="buttons"><MousePointer className="h-4 w-4 mr-2" />Buttons</TabsTrigger>
+        <Tabs defaultValue="reviews" className="space-y-6">
+          <TabsList className="grid w-full grid-cols-5">
             <TabsTrigger value="reviews"><Star className="h-4 w-4 mr-2" />Reviews</TabsTrigger>
             <TabsTrigger value="blogs"><FileText className="h-4 w-4 mr-2" />Blogs</TabsTrigger>
             <TabsTrigger value="contacts"><MessageSquare className="h-4 w-4 mr-2" />Contacts</TabsTrigger>
             <TabsTrigger value="subscribers"><Mail className="h-4 w-4 mr-2" />Subscribers</TabsTrigger>
             <TabsTrigger value="payments"><CreditCard className="h-4 w-4 mr-2" />Payments</TabsTrigger>
           </TabsList>
-
-          <TabsContent value="buttons" className="space-y-6">
-            <Card className="p-6">
-              <div className="flex items-center justify-between gap-4 mb-6">
-                <div className="flex items-center gap-4"><h2 className="text-xl font-bold">All Website Buttons</h2><Badge variant="secondary">{filteredButtons.length} buttons</Badge></div>
-                <div className="relative"><Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" /><Input placeholder="Search buttons..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="pl-10 w-64" /></div>
-              </div>
-              <div className="flex flex-wrap gap-2 mb-6">
-                <Badge variant={searchQuery === "" ? "default" : "outline"} className="cursor-pointer" onClick={() => setSearchQuery("")}>All</Badge>
-                {sections.map(section => (<Badge key={section} variant={searchQuery === section ? "default" : "outline"} className="cursor-pointer" onClick={() => setSearchQuery(section)}>{section}</Badge>))}
-              </div>
-              <div className="border rounded-lg overflow-hidden">
-                <Table>
-                  <TableHeader><TableRow><TableHead>Button Name</TableHead><TableHead>Section</TableHead><TableHead>Action</TableHead><TableHead className="text-right">Clicks</TableHead><TableHead>Last Clicked</TableHead></TableRow></TableHeader>
-                  <TableBody>
-                    {filteredButtons.map(button => (
-                      <TableRow key={button.id}><TableCell className="font-medium">{button.name}</TableCell><TableCell><Badge variant="secondary">{button.section}</Badge></TableCell><TableCell className="text-muted-foreground text-sm max-w-xs truncate">{button.action}</TableCell><TableCell className="text-right font-bold">{button.clicks}</TableCell><TableCell className="text-muted-foreground text-sm">{button.lastClicked ? new Date(button.lastClicked).toLocaleString() : "Never"}</TableCell></TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </div>
-            </Card>
-          </TabsContent>
 
           <TabsContent value="reviews" className="space-y-6">
             <Card className="p-6">
