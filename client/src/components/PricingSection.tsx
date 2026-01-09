@@ -1,10 +1,9 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Check, X, Loader2, Crown } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+import { Check, X, Crown } from "lucide-react";
 
 interface Feature {
   text: string;
@@ -16,6 +15,7 @@ interface Package {
   price: number;
   features: Feature[];
   isPremium?: boolean;
+  paymentButtonId: string;
 }
 
 interface Category {
@@ -32,6 +32,7 @@ const categories: Category[] = [
       {
         planName: "Discover",
         price: 5500,
+        paymentButtonId: "pl_RwDuOx96VYrsyN",
         features: [
           { text: "Psychometric assessment to measure your interests", included: true },
           { text: "1 career counselling session with expert career coaches", included: true },
@@ -46,6 +47,7 @@ const categories: Category[] = [
         planName: "Discover Plus+",
         price: 15000,
         isPremium: true,
+        paymentButtonId: "pl_RwDq8XpK76OhB3",
         features: [
           { text: "Psychometric assessments to measure your interests, personality and abilities", included: true },
           { text: "8 career counselling sessions (1 every year) until graduation", included: true },
@@ -65,6 +67,7 @@ const categories: Category[] = [
       {
         planName: "Achieve Online",
         price: 5999,
+        paymentButtonId: "pl_RwDxvLPQP7j4rG",
         features: [
           { text: "Psychometric assessment to measure your interests, personality and abilities", included: true },
           { text: "1 career counselling session", included: true },
@@ -79,6 +82,7 @@ const categories: Category[] = [
         planName: "Achieve Plus+",
         price: 10599,
         isPremium: true,
+        paymentButtonId: "pl_RwDzfVkQYEdAIf",
         features: [
           { text: "Psychometric assessment to measure your interests, personality and abilities", included: true },
           { text: "4 career counselling sessions", included: true },
@@ -98,6 +102,7 @@ const categories: Category[] = [
       {
         planName: "Ascend Online",
         price: 6499,
+        paymentButtonId: "pl_RwE1evNHrHWJDW",
         features: [
           { text: "Psychometric assessment to measure your interests, personality and abilities", included: true },
           { text: "1 career counselling session", included: true },
@@ -112,6 +117,7 @@ const categories: Category[] = [
         planName: "Ascend Plus+",
         price: 10599,
         isPremium: true,
+        paymentButtonId: "pl_RwE3WEILWB9WeJ",
         features: [
           { text: "Psychometric assessment to measure your interests, personality and abilities", included: true },
           { text: "3 career counselling sessions", included: true },
@@ -131,6 +137,7 @@ const categories: Category[] = [
       {
         planName: "Ascend Online",
         price: 6499,
+        paymentButtonId: "pl_RwE1evNHrHWJDW",
         features: [
           { text: "Psychometric assessment to measure your interests, personality and abilities", included: true },
           { text: "1 career counselling session", included: true },
@@ -145,6 +152,7 @@ const categories: Category[] = [
         planName: "Ascend Plus+",
         price: 10599,
         isPremium: true,
+        paymentButtonId: "pl_RwE3WEILWB9WeJ",
         features: [
           { text: "Psychometric assessment to measure your interests, personality and abilities", included: true },
           { text: "2 career counselling sessions", included: true },
@@ -159,98 +167,32 @@ const categories: Category[] = [
   },
 ];
 
-declare global {
-  interface Window {
-    Razorpay: any;
-  }
-}
+const RazorpayButton = ({ paymentButtonId }: { paymentButtonId: string }) => {
+  const formRef = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    if (!formRef.current) return;
+
+    // Clear previous content to prevent duplicates if id changes
+    formRef.current.innerHTML = "";
+
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/payment-button.js";
+    script.dataset.payment_button_id = paymentButtonId;
+    script.async = true;
+
+    formRef.current.appendChild(script);
+  }, [paymentButtonId]);
+
+  return <form ref={formRef} className="flex justify-center" />;
+};
 
 export function PricingSection() {
   const [activeCategory, setActiveCategory] = useState("8-9");
-  const [loadingPackage, setLoadingPackage] = useState<string | null>(null);
-  const { toast } = useToast();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   const currentCategory = categories.find((c) => c.id === activeCategory);
-
-  const handleBuyNow = async (pkg: Package) => {
-    setLoadingPackage(pkg.planName);
-
-    try {
-      const response = await fetch("/api/payment/create-order", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          amount: pkg.price,
-          planName: pkg.planName,
-          category: currentCategory?.label,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to create order");
-      }
-
-      const order = await response.json();
-
-      const options = {
-        key: order.keyId,
-        amount: order.amount,
-        currency: order.currency,
-        name: "Marichi World",
-        description: `${pkg.planName} - ${currentCategory?.label}`,
-        order_id: order.id,
-        handler: async function (response: any) {
-          try {
-            const verifyResponse = await fetch("/api/payment/verify", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                razorpay_order_id: response.razorpay_order_id,
-                razorpay_payment_id: response.razorpay_payment_id,
-                razorpay_signature: response.razorpay_signature,
-              }),
-            });
-
-            if (verifyResponse.ok) {
-              toast({
-                title: "Payment Successful!",
-                description: `You have successfully purchased ${pkg.planName}. We'll contact you shortly.`,
-              });
-            } else {
-              throw new Error("Payment verification failed");
-            }
-          } catch (error) {
-            toast({
-              title: "Verification Failed",
-              description: "Please contact support with your payment details.",
-              variant: "destructive",
-            });
-          }
-        },
-        prefill: {
-          name: "",
-          email: "",
-          contact: "",
-        },
-        theme: {
-          color: "#8B5CF6",
-        },
-      };
-
-      const razorpay = new window.Razorpay(options);
-      razorpay.open();
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to initiate payment. Please try again.",
-        variant: "destructive",
-      });
-    } finally {
-      setLoadingPackage(null);
-    }
-  };
 
   return (
     <section id="pricing" className="py-20" data-testid="section-pricing">
@@ -304,11 +246,10 @@ export function PricingSection() {
               transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
             >
               <Card
-                className={`relative p-8 h-full border-2 ${
-                  pkg.isPremium
+                className={`relative p-8 h-full border-2 ${pkg.isPremium
                     ? "border-teal-600/50 bg-gradient-to-br from-teal-600/5 to-amber-500/5"
                     : "border-border/50"
-                }`}
+                  }`}
                 data-testid={`card-pricing-${pkg.planName.toLowerCase().replace(/\s+/g, "-")}`}
               >
                 {pkg.isPremium && (
@@ -339,9 +280,8 @@ export function PricingSection() {
                         <X className="h-5 w-5 text-muted-foreground/50 flex-shrink-0 mt-0.5" />
                       )}
                       <span
-                        className={`text-sm ${
-                          feature.included ? "text-foreground" : "text-muted-foreground/50"
-                        }`}
+                        className={`text-sm ${feature.included ? "text-foreground" : "text-muted-foreground/50"
+                          }`}
                       >
                         {feature.text}
                       </span>
@@ -349,26 +289,7 @@ export function PricingSection() {
                   ))}
                 </ul>
 
-                <Button
-                  className={`w-full ${
-                    pkg.isPremium
-                      ? "bg-gradient-to-r from-teal-600 to-emerald-500 text-white border-0"
-                      : ""
-                  }`}
-                  variant={pkg.isPremium ? "default" : "outline"}
-                  onClick={() => handleBuyNow(pkg)}
-                  disabled={loadingPackage === pkg.planName}
-                  data-testid={`button-buy-${pkg.planName.toLowerCase().replace(/\s+/g, "-")}`}
-                >
-                  {loadingPackage === pkg.planName ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Processing...
-                    </>
-                  ) : (
-                    "Buy Now"
-                  )}
-                </Button>
+                <RazorpayButton paymentButtonId={pkg.paymentButtonId} />
               </Card>
             </motion.div>
           ))}
