@@ -1,0 +1,8 @@
+name = "manisha-sharma-api"
+main = "src/index.js"
+compatibility_date = "2024-03-04"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "manisha-sharma-db"
+database_id = "968a91bc-67c6-4572-b0b6-4e15c84db55b"
